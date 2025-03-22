@@ -33,4 +33,4 @@ Day 26 :- Event analytics & reports (Frontend)
 Day 27 :- Event analytics & reports (Backend)
 Day 28 :- Profile page (Frontend)
 Day 29 :- Profile page (Backend)
-Day 30 :- Testing, debugging, and refinements
+Day 30 :- Testing, debugging, and launching
