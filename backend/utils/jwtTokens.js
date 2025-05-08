@@ -5,6 +5,7 @@ const sendToken = (user, statusCode, res) => {
     expiresIn: "7d",
   });
 
+  
   res.status(statusCode).json({
     success: true,
     token,
@@ -12,6 +13,7 @@ const sendToken = (user, statusCode, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
+     
       
     },
   });
