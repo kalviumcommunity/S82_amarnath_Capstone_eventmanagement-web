@@ -11,6 +11,7 @@ const sendOtp = async (email) => {
       pass: process.env.EMAIL_PASS, 
     },
   });
+  
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -22,5 +23,6 @@ const sendOtp = async (email) => {
   await transporter.sendMail(mailOptions);
   return otp;
 };
+
 
 module.exports = sendOtp;
