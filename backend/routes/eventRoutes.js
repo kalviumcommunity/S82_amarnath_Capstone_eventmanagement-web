@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+
 // PUT to update event
 router.put("/:id", async (req, res) => {
   const { name, date, location, description } = req.body;

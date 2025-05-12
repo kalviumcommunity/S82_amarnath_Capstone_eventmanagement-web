@@ -23,6 +23,7 @@ router.get("/me", verifyToken, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 router.put("/:id", verifyToken, async (req, res) => {
   const { ticketCount } = req.body;
 
