@@ -15,7 +15,6 @@ app.use(cors({
 const authRoutes = require("./routes/auth");
 const otpRoutes = require("./routes/otpRoutes");
 
-
 app.use("/api", authRoutes);
 app.use("/api2", otpRoutes);
 app.use("/api/events", require("./routes/eventRoutes"));
