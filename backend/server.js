@@ -14,11 +14,15 @@ app.use(cors({
 
 const authRoutes = require("./routes/auth");
 const otpRoutes = require("./routes/otpRoutes");
-const userRoutes = require("./routes/user");
+
 
 app.use("/api", authRoutes);
 app.use("/api2", otpRoutes);
-app.use("/api/users", userRoutes);
+
+app.use("/api/events", require("./routes/eventRoutes"));
+app.use("/api/tickets", require("./routes/ticketRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
+
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).json({
