@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 // POST a new event
 router.post("/", async (req, res) => {
   const { name, date, location, description } = req.body;
