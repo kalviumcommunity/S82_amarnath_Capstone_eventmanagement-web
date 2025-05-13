@@ -5,4 +5,5 @@ const transporter = nodemailer.createTransport({
       user: "tanath2007@gmail.com",
       pass: "vuaz pakz vaim gomi"
     }
+    
   });
