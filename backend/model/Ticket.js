@@ -7,4 +7,7 @@ const ticketSchema = new mongoose.Schema({
   bookedAt: { type: Date, default: Date.now }
 });
 
+
+
 module.exports = mongoose.model("Ticket", ticketSchema);
+
