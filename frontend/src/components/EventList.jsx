@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Home } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -15,8 +16,11 @@ const EventList = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Header */}
-      <div className="w-full bg-gray-300 flex justify-center items-center py-4">
-        <h1 className="text-2xl font-bold">MY Events</h1>
+      <div className="w-full bg-gray-300 flex justify-between items-center py-4 px-6">
+        <h1 className="text-2xl font-bold mx-auto">MY Events</h1>
+        <Link to="/">
+          <Home className="w-6 h-6 cursor-pointer" />
+        </Link>
       </div>
 
       {/* Grid Container */}
