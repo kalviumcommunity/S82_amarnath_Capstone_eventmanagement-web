@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("../model/user");
 const sendToken = require("../utils/jwtTokens");
 const ErrorHandler =require("../utils/ErrorHandler")
+const ErrorHandler= require("../utils/Errorhandler")
 const { verifyToken } = require("../middlewares/authMiddleware");
 const sendOtp = require("../utils/sendOtp");
 const otpStore = require("../utils/otpStore");
@@ -42,7 +43,25 @@ router.post("/login", async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 });
+// Route to load login page (GET)
+router.get("/login", (req, res) => {
+  res.status(200).send("Login page ready");
+});
 
+
+// Route to send OTP (POST)
+router.post("/send-otp", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Generate OTP
+    const otp = await sendOtp(email);
+
+    // Store OTP with expiration time
+    otpStore[email] = {
+      otp,
+      expiresAt: Date.now() + 5 * 60 * 1000, // OTP valid for 5 minutes
+    };
 
 
 // Route to verify OTP (POST)
