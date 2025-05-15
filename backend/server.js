@@ -19,7 +19,8 @@ app.use("/api", authRoutes);
 app.use("/api2", otpRoutes);
 app.use("/api/events", require("./routes/eventRoutes"));
 app.use("/api/tickets", require("./routes/ticketRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/userDetails"));
+
 
 
 app.use((err, req, res, next) => {

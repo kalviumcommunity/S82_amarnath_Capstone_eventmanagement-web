@@ -30,7 +30,7 @@ function Home() {
           BOOK HERE
         </button>
 
-        <p className="text-lg mb-6">Manage and discover event easiy</p>
+        <p className="text-lg mb-6">Manage and discover event easily</p>
 
         <div className="flex justify-center gap-3">
           <button onClick={()=>navigate("/eventlist")} className="bg-neutral-800 text-white px-4 py-2">My Events</button>
