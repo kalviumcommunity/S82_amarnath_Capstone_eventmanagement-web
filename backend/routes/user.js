@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../model/user");
 
 // GET all users
-router.get("/", async (req, res) => {
+router.get("/get", async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST a new user
-router.post("/", async (req, res) => {
+router.post("/post", async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const user = new User({ username, email, password });
