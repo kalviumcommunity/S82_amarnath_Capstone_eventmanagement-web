@@ -14,9 +14,9 @@ router.get("/get", async (req, res) => {
 
 // POST a new user
 router.post("/post", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
   try {
-    const user = new User({ username, email, password });
+    const user = new User({ name, email, password });
     await user.save();
     res.status(201).json(user);
   } catch (err) {
