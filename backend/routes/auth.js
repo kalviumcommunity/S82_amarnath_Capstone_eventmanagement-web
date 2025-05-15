@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const User = require("../model/user");
 const sendToken = require("../utils/jwtTokens");
 const ErrorHandler =require("../utils/ErrorHandler")
-const ErrorHandler= require("../utils/Errorhandler")
 const { verifyToken } = require("../middlewares/authMiddleware");
 const sendOtp = require("../utils/sendOtp");
 const otpStore = require("../utils/otpStore");
@@ -43,6 +42,7 @@ router.post("/login", async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 });
+
 // Route to load login page (GET)
 router.get("/login", (req, res) => {
   res.status(200).send("Login page ready");
@@ -63,6 +63,12 @@ router.post("/send-otp", async (req, res) => {
       expiresAt: Date.now() + 5 * 60 * 1000, // OTP valid for 5 minutes
     };
 
+    // Response indicating OTP sent
+    res.json({ success: true, message: "OTP sent to email" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to send OTP" });
+  }
+});
 
 // Route to verify OTP (POST)
 router.post("/verify-otp", (req, res) => {
@@ -86,27 +92,6 @@ router.post("/verify-otp", (req, res) => {
   // OTP verified successfully
   delete otpStore[email];
   res.json({ success: true, message: "OTP verified successfully." });
-});
-
-// Route to send OTP (POST)
-router.post("/send-otp", async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    // Generate OTP
-    const otp = await sendOtp(email);
-
-    // Store OTP with expiration time
-    otpStore[email] = {
-      otp,
-      expiresAt: Date.now() + 5 * 60 * 1000, // OTP valid for 5 minutes
-    };
-
-    // Response indicating OTP sent
-    res.json({ success: true, message: "OTP sent to email" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to send OTP" });
-  }
 });
 
 // Route to load signup page (GET)
@@ -155,5 +140,23 @@ router.get("/me", verifyToken, async (req, res, next) => {
     user: req.user,
   });
 });
+// Express backend: auth/google
+const { getAuth } = require("firebase-admin/auth");
+
+app.post("/auth/google", async (req, res) => {
+  const { token } = req.body;
+  try {
+    const decoded = await getAuth().verifyIdToken(token);
+    // Create or find user in DB
+    const user = { id: decoded.uid, email: decoded.email };
+
+    // Create custom token (or use your JWT strategy)
+    const customToken = jwt.sign(user, process.env.JWT_SECRET);
+    res.json({ token: customToken });
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Google token" });
+  }
+});
+
 
 module.exports = router;
