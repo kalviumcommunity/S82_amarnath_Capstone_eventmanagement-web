@@ -44,6 +44,12 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+// Route to load login page (GET)
+router.get("/login", (req, res) => {
+  res.status(200).send("Login page ready");
+});
+
+
 // Route to send OTP (POST)
 router.post("/send-otp", async (req, res) => {
   const { email } = req.body;
