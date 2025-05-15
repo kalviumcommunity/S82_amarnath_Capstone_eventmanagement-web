@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("../model/user");
 const sendToken = require("../utils/jwtTokens");
 const ErrorHandler =require("../utils/ErrorHandler")
+const ErrorHandler= require("../utils/Errorhandler")
 const { verifyToken } = require("../middlewares/authMiddleware");
 const sendOtp = require("../utils/sendOtp");
 const otpStore = require("../utils/otpStore");
