@@ -43,7 +43,32 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+// Route to load login page (GET)
+router.get("/login", (req, res) => {
+  res.status(200).send("Login page ready");
+});
 
+
+// Route to send OTP (POST)
+router.post("/send-otp", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Generate OTP
+    const otp = await sendOtp(email);
+
+    // Store OTP with expiration time
+    otpStore[email] = {
+      otp,
+      expiresAt: Date.now() + 5 * 60 * 1000, // OTP valid for 5 minutes
+    };
+
+    // Response indicating OTP sent
+    res.json({ success: true, message: "OTP sent to email" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to send OTP" });
+  }
+});
 
 // Route to verify OTP (POST)
 router.post("/verify-otp", (req, res) => {
@@ -67,27 +92,6 @@ router.post("/verify-otp", (req, res) => {
   // OTP verified successfully
   delete otpStore[email];
   res.json({ success: true, message: "OTP verified successfully." });
-});
-
-// Route to send OTP (POST)
-router.post("/send-otp", async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    // Generate OTP
-    const otp = await sendOtp(email);
-
-    // Store OTP with expiration time
-    otpStore[email] = {
-      otp,
-      expiresAt: Date.now() + 5 * 60 * 1000, // OTP valid for 5 minutes
-    };
-
-    // Response indicating OTP sent
-    res.json({ success: true, message: "OTP sent to email" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to send OTP" });
-  }
 });
 
 // Route to load signup page (GET)
