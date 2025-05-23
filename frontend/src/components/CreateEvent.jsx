@@ -67,7 +67,7 @@ const CreateEvent = () => {
             </div>
           </div>
 
-          {/* Create Button */}
+      
           <div className="flex justify-end">
             <button onClick={()=>{navigate("/eventdetails")}} className="bg-black text-white px-6 py-2 rounded-md font-bold hover:bg-gray-800">
               CREATE
